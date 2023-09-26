@@ -142,7 +142,11 @@ body {
 
 
 /* Styles pour les écrans de téléphone mobile */
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 600px) {
+    body {
+        min-height: 80vh;
+    }
+    
     .wrapper {
         width: 90%; /* Augmenter la largeur pour les mobiles */
         padding: 20px;

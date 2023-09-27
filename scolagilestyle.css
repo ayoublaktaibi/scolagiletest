@@ -90,9 +90,16 @@ body {
     opacity: 0.7;
 }
 
+.remember-forgot label {
+    display: flex;
+    align-items: center;
+}
+
 .remember-forgot label input {
     accent-color: #04437c;
     margin-right: 3px;
+    vertical-align: middle;
+    margin-top: 0;
 }
 
 .remember-forgot a {

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mainstyle.css">
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Scolagile</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo_version">
+            <img src="fsts_logo.png" alt="logofst" class="logofst">
+            <p class="version">FSTS<span>v2.0</span></p>
+        </div>
+        <div class="navs">
+            <i class="fas fa-flag"></i>
+            <a href="#">Paramètres</a>
+            <button>Déconnexion</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <div class="menuheader">
+                <h3>Navigation</h3>
+                <i class='bx bxs-arrow-to-left' id="sidebar-toggle"></i>
+            </div>
+            <div class="sidebar-item">
+                <a href="#" class="toggle-submenu">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Espace candidat</span>
+                    <i class="bx bxs-chevron-down"></i>
+                </a>
+                <div class="submenu">
+                    <a href="#">> Ma candidature</a>
+                    <a href="#">> Mes pièces jointes</a>
+                    <a href="#">> Compléter mes informations</a>
+                    <a href="#">> Valider ma candidature</a>
+                </div>
+            </div>
+            <div class="sidebar-item">
+                <a href="#"><i class="fas fa-briefcase"></i><span>Mes stages</span></a>
+            </div>
+            <div class="sidebar-item">
+                <a href="#"><i class="fas fa-list"></i><span>Stages publiés</span></a>
+            </div>
+            <div class="sidebar-item">
+                <a href="#"><i class="fas fa-address-card"></i><span>Étudiants</span></a>
+            </div>
+            <div class="sidebar-item">
+                <a href="#"><i class="fas fa-user-group"></i><span>Mes groupes</span></a>
+            </div>
+            <div class="sidebar-item">
+                <a href="#"><i class="fas fa-pen"></i><span>Consultation des notes</span></a>
+            </div>
+            <div class="sidebar-item">
+                <a href="#"><i class="fas fa-folder-open"></i><span>Mes documents</span></a>
+            </div>
+            <div class="sidebar-item">
+                <a href="#"><i class="fas fa-paper-plane"></i><span>Mes demandes</span></a>
+            </div>
+            <div class="sidebar-item">
+                <a href="#"><i class="fas fa-exclamation-circle"></i><span>Mes réclamations</span></a>
+            </div>
+            <div class="sidebar-item">
+                <a href="#"><i class="fas fa-edit"></i><span>Mes exams</span></a>
+            </div>
+        </div>        
+        <div class="main">
+            <div class="header">
+                <div class="user-info">
+                    <h2>Nom Prénom</h2>
+                    <p>La Filière</p>
+                </div>
+                <div class="liens">
+                    <a href="#"><i class='bx bxs-download'></i> Convocation</a>
+                    <a href="#"><i class='bx bxs-download'></i> Certificat de scolarité</a>
+                </div>                
+            </div>
+            <div class="card-container">
+                <a href="#" class="card espace-candidat"><i class="fas fa-graduation-cap"></i>Espace Candidat</a>
+                <a href="#" class="card mon-profil"><i class="fas fa-address-card"></i>Mon profil</a>
+                <a href="#" class="card mes-groupes"><i class="fas fa-user-group"></i>Mes groupes</a>
+                <a href="#" class="card consultation-notes"><i class="fas fa-pen"></i>Consultation des notes</a>
+                <a href="#" class="card bibliotheque"><i class="fas fa-book"></i>Bibliothèque</a>
+                <a href="#" class="card mes-stages"><i class="fas fa-briefcase"></i>Mes stages</a>
+            </div>
+            <div class="bas">
+                <marquee> Le site est développé par Ayoub Laktaibi</marquee>
+            </div>
+        </div>
+    </div>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const spans = document.querySelectorAll('.sidebar .sidebar-item a span');
+    const submenuToggle = document.querySelector('.toggle-submenu');
+    const submenu = submenuToggle.nextElementSibling;
+    const sidebarLinks = document.querySelectorAll('.sidebar .sidebar-item a');
+
+    sidebarToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('reduced');
+        if (sidebar.classList.contains('reduced')) {
+            sidebarToggle.classList.replace('bxs-arrow-to-left', 'bxs-arrow-from-left');
+            spans.forEach(span => {
+                span.style.width = '0';
+            });
+        } else {
+            sidebarToggle.classList.replace('bxs-arrow-from-left', 'bxs-arrow-to-left');
+            spans.forEach(span => {
+                const spanWidth = span.scrollWidth;
+                span.style.width = spanWidth + 'px';
+            });
+        }
+
+        // Fix submenu position
+        if (submenu.classList.contains('open')) {
+            submenu.style.top = submenuToggle.getBoundingClientRect().top + 'px';
+        }
+    });
+
+    submenuToggle.addEventListener('click', function(event) {
+        event.preventDefault();
+        const isOpen = submenu.classList.contains('open');
+        document.querySelectorAll('.sidebar-item .submenu').forEach(s => s.classList.remove('open'));
+        document.querySelectorAll('.sidebar .sidebar-item a').forEach(link => link.classList.remove('active'));
+
+        if (!isOpen) {
+            submenu.classList.add('open');
+            submenuToggle.classList.add('active');
+
+            // Fix submenu position
+            if (sidebar.classList.contains('reduced')) {
+                submenu.style.top = submenuToggle.getBoundingClientRect().top + 'px';
+            }
+        }
+
+        submenuToggle.querySelector('.bx').classList.toggle('rotate');
+    });
+
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            if (!link.classList.contains('toggle-submenu')) {
+                document.querySelectorAll('.sidebar-item .submenu').forEach(s => s.classList.remove('open'));
+                document.querySelectorAll('.sidebar .sidebar-item a').forEach(l => l.classList.remove('active'));
+            }
+            link.classList.add('active');
+        });
+
+        link.addEventListener('focus', function(event) {
+            document.querySelectorAll('.sidebar .sidebar-item a').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        });
+    });
+});
+    </script>
+</body>
+</html>
